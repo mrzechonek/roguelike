@@ -322,7 +322,7 @@ class Game:
 
     def _get_direction(self, message=None, pressed=None):
         if message:
-            self.message("%s [↕↔]?" % message)
+            self.message("%s [<arrows>]?" % message)
 
         pressed = pressed or self.screen.getch()
 
@@ -382,7 +382,7 @@ class Game:
                     return Use(self.player, self.map.tiles[y][x], item)
 
         if pressed == ord('?'):
-            return Wait("↕↔: walk, O: open, C: close, P: pick up, D: drop, U: use")
+            return Wait("<arrows>: walk, O: open, C: close, P: pick up, D: drop, U: use")
 
         return Wait()
 
