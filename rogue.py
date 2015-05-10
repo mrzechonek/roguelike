@@ -343,7 +343,6 @@ class Game:
             return None
 
     def action(self):
-        self.message("↕↔: walk, O: open, C: close, P: pick up, D: drop, U: use")
         pressed = self.screen.getch()
 
         y, x = self._get_direction(pressed=pressed)
@@ -382,14 +381,21 @@ class Game:
                 if y and x:
                     return Use(self.player, self.map.tiles[y][x], item)
 
+        if pressed == ord('?'):
+            return Wait("↕↔: walk, O: open, C: close, P: pick up, D: drop, U: use")
+
         return Wait()
 
     def message(self, message, color=None):
         self.status.clear()
         self.status.addstr(0, 0, message, color or Colors.LIGHT_GRAY)
+        self.status.addstr(0, 72, "?: help")
         self.status.refresh()
 
     def run(self):
+        self.screen.refresh()
+        self.message("You stand in a corridor.")
+
         while True:
             self.map.show(self.screen)
             self.player.show(self.screen)
